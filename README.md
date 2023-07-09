@@ -1,7 +1,4 @@
 ## POC Padrão Observer com Kafka
-
-Esta é uma aplicação de exemplo que demonstra a implementação do padrão Observer com o uso do Kafka em uma arquitetura limpa.
-
 ## Estrutura de Pastas
 
 - `src`: Pasta raiz do código-fonte da aplicação.
