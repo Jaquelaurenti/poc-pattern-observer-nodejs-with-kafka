@@ -4,6 +4,7 @@ class NotificationService {
   }
 
   addObserver(observer) {
+    console.log("Adicionando o observer", observer)
     this.subjectRepository.addObserver(observer);
   }
 

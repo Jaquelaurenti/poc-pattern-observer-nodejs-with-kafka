@@ -3,6 +3,7 @@ const SubjectRepository = require('../repositories/SubjectRepository');
 const NotificationService = require('../usecases/NotificationService');
 const Observer = require('../domain/Observer');
 const KafkaService = require('../usecases/KafkaService');
+const { Kafka } = require('kafkajs');
 
 async function main() {
   // Criação do SubjectRepository
@@ -11,32 +12,33 @@ async function main() {
   // Criação do serviço de notificação com o SubjectRepository
   const notificationService = new NotificationService(subjectRepository);
 
-  // Criação do serviço KafkaService com o SubjectRepository
-  const kafkaService = new KafkaService(subjectRepository);
-
-  // Inicia o consumidor do Kafka
-  await kafkaService.startConsumer();
-
   // Criação de objetos Observer dinamicamente
-  const observer1 = new Observer('Observer 1');
-  const observer2 = new Observer('Observer 2');
-  const observer3 = new Observer('Observer 3');
+  const observer1 = new Observer('Magazine Luiza');
+  const observer2 = new Observer('Casas Bahia');
+  const observer3 = new Observer('Mercado Livre');
 
   // Adiciona os observadores ao SubjectRepository
   subjectRepository.addObserver(observer1);
   subjectRepository.addObserver(observer2);
   subjectRepository.addObserver(observer3);
 
-  // Criação do Subject após adicionar os observadores
+  // Criação do Subject
   const subject = new Subject();
+
+  // Define o Subject no SubjectRepository
   subjectRepository.setSubject(subject);
 
   // Simulação de um evento
-  notificationService.notifyObservers('Evento X');
+  notificationService.notifyObservers('Black Friday');
 
   // Publicar mensagem no tópico Kafka
-  const { Kafka } = require('kafkajs');
+/*
 
+  // Criação do serviço KafkaService com o SubjectRepository
+  const kafkaService = new KafkaService(subjectRepository);
+
+  // Inicia o consumidor do Kafka
+  await kafkaService.startConsumer();
   async function publishMessage() {
     const kafka = new Kafka({
       clientId: 'my-app',
@@ -48,14 +50,14 @@ async function main() {
     await producer.connect();
     await producer.send({
       topic: 'notification-topic',
-      messages: [{ value: 'Mensagem do Kafka' }],
+      messages: [{ value: 'Mensagem do Kafka através da aplicação NodeJS POC' }],
     });
 
     await producer.disconnect();
   }
 
   // Simular publicação de mensagem no Kafka
-  await publishMessage();
+  await publishMessage();*/
 }
 
 main().catch(console.error);

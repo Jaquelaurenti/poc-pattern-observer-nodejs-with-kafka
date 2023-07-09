@@ -4,7 +4,7 @@ class Observer {
   }
 
   update(event) {
-    console.log(`${this.name} foi notificado do evento: ${event}`);
+    console.log(`Observer ${this.name} recebeu a notificação do evento: ${event}`);
   }
 }
 
