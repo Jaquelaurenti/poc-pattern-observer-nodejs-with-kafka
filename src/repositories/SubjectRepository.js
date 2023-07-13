@@ -36,6 +36,7 @@ class SubjectRepository {
     if (this.subject) {
       this.subject.addObserver(observer);
     }
+    return this.observers;
   }
 
   removeObserver(observer) {
@@ -53,6 +54,10 @@ class SubjectRepository {
     this.observers.forEach((observer) => {
       observer.update(event);
     });
+  }
+
+  getAllObservers() {
+    return this.observers
   }
 }
 
